@@ -1,5 +1,6 @@
 //#include "record.cpp"
-#include "record.hpp"
+//#include "record.hpp"
+#include "record2.h"
 #include "ALSADevices.h"
 #include "constants.h"
 #include <iostream>
@@ -22,14 +23,15 @@ int main(int argc,char **argv){
     ros::NodeHandle n;
     ros::Rate loop_rate(10);
     ros::Publisher voiceWordsPub = n.advertise<std_msgs::String>("voiceWords", 1000);
-*/	
+*/
+
+	record2 record_x;	
 	int ret;
 	struct kws_s kws1;
 //	kws1->node = n;
 	pthread_t tid;
 	ret = kws_start(&kws1);
-	int *a = 0;
-	pthread_create(&tid,NULL,record_routine,&a);
+	pthread_create(&tid,NULL,record,&record_x);
 	while(1){
 	if(kws1.kws_flag){
 		kws1.kws_flag = 0;
